@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import firebase from 'firebase';
-import { useAddTaskForUser, useFetchTasksForUser } from '../hooks';
+import { useAddTaskForUser, useFetchTasksForUser, useMarkTaskComplete } from '../hooks';
 import { Button, Empty, Row, Spin, Input, DatePicker, Col, Form } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import moment from 'moment';
+import Checkbox from 'antd/lib/checkbox/Checkbox';
 
 
 const Main: React.FC<{ user: firebase.User }> = ({ user }) => {
   const { tasks, loading } = useFetchTasksForUser(user);
   const addTask = useAddTaskForUser(user);
+  const completeTask = useMarkTaskComplete();
   const [newTask, updateNewTask] = useState<ITaskInput>({});
   const [showNewTaskInputs, setShowNewTaskInputs] = useState(false);
   const invalidInput = !newTask.description || !newTask.title || !newTask.dueDate;
@@ -80,8 +82,13 @@ const Main: React.FC<{ user: firebase.User }> = ({ user }) => {
       { !loading && !tasks.length && <Empty />}
       {
         tasks.map((task, i) =>
-          <Row key={i}>
-            <div>{task.title}</div>
+          <Row className='align-center' key={i}>
+            <Checkbox
+              className='my-auto mr-4'
+              checked={task.completed}
+              onChange={(e) => completeTask(task, e.target.checked)}
+            />
+            <div className='text-lg'>{task.title}</div>
           </Row>)
       }
 
