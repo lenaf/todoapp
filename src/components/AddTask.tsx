@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import firebase from 'firebase';
 import { useAddTaskForUser } from '../hooks';
-import { Button, Row, Input, DatePicker, Col, Form } from 'antd';
+import { Button, Row, Form } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import moment from 'moment';
 import TaskInputs from './TaskInputs';
 
 interface IProps { user: firebase.User, className?: string }
-
 
 
 const AddTask: React.FC<IProps> = ({ user, className }) => {
@@ -24,6 +22,7 @@ const AddTask: React.FC<IProps> = ({ user, className }) => {
   return (
     <div className={className}>
       {!showNewTaskInputs ?
+
         <Button
           icon={<PlusOutlined style={{ verticalAlign: 'initial' }} />}
           type='primary'
@@ -31,16 +30,15 @@ const AddTask: React.FC<IProps> = ({ user, className }) => {
           className='mb-2 ml-auto'>
           Add Task
         </Button> :
+
         <Form onFinish={handleAddTask} >
           <TaskInputs task={newTask} updateTask={updateNewTask} />
           <Row>
-            <Button
-              type='ghost'
+            <Button type='ghost' className='ml-auto mb-2 mr-2'
               onClick={() => {
                 setShowNewTaskInputs(false);
                 updateNewTask({})
-              }}
-              className='ml-auto mb-2 mr-2'>
+              }}>
               Cancel
           </Button>
             <Button
