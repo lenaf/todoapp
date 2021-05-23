@@ -2,10 +2,10 @@ import React from 'react';
 import './App.css';
 import firebase from 'firebase';
 import withFirebaseAuth, { WrappedComponentProps } from 'react-with-firebase-auth';
-import { Button, Row, Layout } from 'antd';
-import googleLogo from './images/googleLogo.png'
-import Main from './components/Main';
-import Avatar from 'antd/lib/avatar/avatar';
+import { Layout } from 'antd';
+import LoggedIn from './components/LoggedIn';
+import TopNav from './components/TopNav';
+import LoggedOut from './components/LoggedOut';
 
 const firebaseApp = firebase.initializeApp({
   apiKey: "AIzaSyDjZnEbjldaCbHizaFib3051sOiCstgCbs",
@@ -23,32 +23,11 @@ export const providers = { googleProvider: new firebase.auth.GoogleAuthProvider(
 
 const App: React.ComponentType<object & WrappedComponentProps> = ({ user, signOut, signInWithGoogle }) =>
   <div className="App">
-    <Layout.Header className='bg-blue-500'>
-      <Row className='items-center h-full'>
-        <h4 className='text-white text-2xl'>To Do App</h4>
-        {user &&
-          <Row className='ml-auto items-center'>
-            <Avatar src={user.photoURL} className='mr-2' />
-            <h1 className='items-center text-white mr-2'>{user.displayName}</h1>
-            <Button
-              onClick={signOut}>Sign out</Button>
-          </Row>
-        }
-      </Row>
-    </Layout.Header>
+    <TopNav user={user} signOut={signOut} />
     <Layout.Content className='h-screen p-8'>
-      {user ? <Main user={user} /> :
-        <div className='flex h-full'>
-          <div className='my-auto mx-auto'>
-            <h1 className='mb-8 text-8xl font-light	'>Welcome!</h1>
-            <Button className='my-auto mx-auto' onClick={signInWithGoogle} >
-              <Row>
-                <img className='mr-2' alt='Google Logo' width='20px' src={googleLogo} />
-                <div>Sign in with Google</div>
-              </Row>
-            </Button>
-          </div>
-        </div>
+      {user ?
+        <LoggedIn user={user} /> :
+        <LoggedOut signInWithGoogle={signInWithGoogle} />
       }
     </Layout.Content>
   </div >
