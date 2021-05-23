@@ -5,6 +5,7 @@ import withFirebaseAuth, { WrappedComponentProps } from 'react-with-firebase-aut
 import { Button, Row, Layout } from 'antd';
 import googleLogo from './images/googleLogo.png'
 import Main from './components/Main';
+import Avatar from 'antd/lib/avatar/avatar';
 
 const firebaseApp = firebase.initializeApp({
   apiKey: "AIzaSyDjZnEbjldaCbHizaFib3051sOiCstgCbs",
@@ -22,13 +23,20 @@ export const providers = { googleProvider: new firebase.auth.GoogleAuthProvider(
 
 const App: React.ComponentType<object & WrappedComponentProps> = ({ user, signOut, signInWithGoogle }) =>
   <div className="App">
-    <Layout.Header className='bg-blue-500	'>
-      <Row className='items-center'>
-        <h4 className='text-white'>To Do App</h4>
-        {user && <Button className='ml-auto' onClick={signOut}>Sign out</Button>}
+    <Layout.Header className='bg-blue-500'>
+      <Row className='items-center h-full'>
+        <h4 className='text-white text-2xl'>To Do App</h4>
+        {user &&
+          <Row className='ml-auto items-center'>
+            <Avatar src={user.photoURL} className='mr-2' />
+            <h1 className='items-center text-white mr-2'>{user.displayName}</h1>
+            <Button
+              onClick={signOut}>Sign out</Button>
+          </Row>
+        }
       </Row>
     </Layout.Header>
-    <Layout.Content className='h-screen'>
+    <Layout.Content className='h-screen p-8'>
       {user ? <Main user={user} /> :
         <div className='flex h-full'>
           <div className='my-auto mx-auto'>
