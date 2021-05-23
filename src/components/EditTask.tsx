@@ -3,34 +3,35 @@ import { useEditTask } from '../hooks';
 import { Button, Row, Form } from 'antd';
 import TaskInputs from './TaskInputs';
 
-interface IProps { task: ITask, onClose: () => void }
+interface IProps {
+  task: ITask,
+  onClose: () => void
+}
 
-
-const EditTask: React.FC<IProps> = ({ task, onClose }) => {
+const EditTask: React.FC<IProps> = ({
+  task,
+  onClose
+}) => {
   const [editedTask, setEditedTask] = useState(task);
   const editTask = useEditTask();
 
-  const invalidInput = !editedTask.description || !editedTask.title || !editedTask.dueDate;
-
-  const handleAddTask = () => {
-    editTask(editedTask);
-    onClose();
-  }
-
   return (
-    <Form onFinish={handleAddTask} >
+    <Form onFinish={() => {
+      editTask(editedTask);
+      onClose();
+    }} >
       <TaskInputs task={editedTask} updateTask={(task) => setEditedTask(task as ITask)} />
       <Row>
         <Button type='ghost' className='ml-auto mb-2 mr-2'
           onClick={() => {
             setEditedTask(task);
-            onClose()
+            onClose();
           }}>
           Cancel
-          </Button>
+        </Button>
         <Button
           htmlType="submit"
-          disabled={invalidInput}
+          disabled={!editedTask.description || !editedTask.title || !editedTask.dueDate}
           type='primary'
           className='mb-2'
         >

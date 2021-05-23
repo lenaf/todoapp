@@ -2,9 +2,15 @@ import React from 'react';
 import { Row, Input, DatePicker, Col } from 'antd';
 import moment from 'moment';
 
-interface IProps { task: ITask | ITaskInput, updateTask: (task: ITask | ITaskInput) => void }
+interface IProps {
+  task: ITask | ITaskInput,
+  updateTask: (task: ITask | ITaskInput) => void
+}
 
-const TaskInputs: React.FC<IProps> = ({ task, updateTask }) => {
+const TaskInputs: React.FC<IProps> = ({
+  task,
+  updateTask
+}) => {
   return (
     <div>
       <Row className='mb-2 '>

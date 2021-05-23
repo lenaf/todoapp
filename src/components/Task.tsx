@@ -6,8 +6,9 @@ import moment from 'moment';
 import { EllipsisOutlined } from '@ant-design/icons';
 import EditTask from './EditTask';
 
-
-const Task: React.FC<{ task: ITask }> = ({ task }) => {
+const Task: React.FC<{ task: ITask }> = ({
+  task
+}) => {
   const [isInEditState, setIsInEditState] = useState(false);
   const completeTask = useMarkTaskComplete();
   const deleteTask = useDeleteTask();

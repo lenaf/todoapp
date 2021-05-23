@@ -33,8 +33,6 @@ export const useEditTask = () => (task: ITask) =>
             dueDate: task.dueDate
         });
 
-
-
 export const useDeleteTask = () => (task: ITask) =>
     firebase.firestore().collection("tasks")
         .doc(task.id).delete();

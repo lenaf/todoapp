@@ -5,10 +5,15 @@ import { Button, Row, Form } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import TaskInputs from './TaskInputs';
 
-interface IProps { user: firebase.User, className?: string }
+interface IProps {
+  user: firebase.User,
+  className?: string
+}
 
-
-const AddTask: React.FC<IProps> = ({ user, className }) => {
+const AddTask: React.FC<IProps> = ({
+  user,
+  className
+}) => {
   const addTask = useAddTaskForUser(user);
   const [newTask, updateNewTask] = useState<ITaskInput>({});
   const [showNewTaskInputs, setShowNewTaskInputs] = useState(false);
@@ -18,11 +23,11 @@ const AddTask: React.FC<IProps> = ({ user, className }) => {
     addTask(newTask);
     setShowNewTaskInputs(false);
     updateNewTask({});
-  }
+  };
+
   return (
     <div className={className}>
       {!showNewTaskInputs ?
-
         <Button
           icon={<PlusOutlined style={{ verticalAlign: 'initial' }} />}
           type='primary'
@@ -30,7 +35,6 @@ const AddTask: React.FC<IProps> = ({ user, className }) => {
           className='mb-2 ml-auto'>
           Add Task
         </Button> :
-
         <Form onFinish={handleAddTask} >
           <TaskInputs task={newTask} updateTask={updateNewTask} />
           <Row>
@@ -51,7 +55,6 @@ const AddTask: React.FC<IProps> = ({ user, className }) => {
           </Button>
           </Row>
         </Form>
-
       }
     </div>
   );

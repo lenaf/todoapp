@@ -9,7 +9,10 @@ interface IProps {
   signOut: () => void;
 }
 
-const TopNav: React.FC<IProps> = ({ user, signOut }) =>
+const TopNav: React.FC<IProps> = ({
+  user,
+  signOut
+}) =>
   <Layout.Header className='bg-blue-500'>
     <Row align='middle' wrap={false} className='h-full'>
       <h4 className='text-white text-2xl'>To Do App</h4>

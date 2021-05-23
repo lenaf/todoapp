@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Row } from 'antd';
 import googleLogo from '../images/googleLogo.png'
 
-
 const LoggedOut: React.FC<{ signInWithGoogle: () => void }> = ({ signInWithGoogle }) => {
   return (
     <div className='flex h-full'>
